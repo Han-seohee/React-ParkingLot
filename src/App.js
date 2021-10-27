@@ -9,7 +9,7 @@ import ParkinglotButton from './components/ParkinglotButton';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { //초기값 설정
+    this.state = { //초기값 설정 , Q. data:[] 이고 airport_list:[{},{}...], airport_index:''인 이유?
       data: [],
       airport_list: [
         { idx:"", name:"전체"},
@@ -30,20 +30,20 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.call();
+    this.call(); //Q. this.call(); 하는 이유? componentDiddMount가 API호출을 위한것인지..?
   }
 
-  Test = async (index) => { //async await 비동기처리 
+  Test = async (index) => { //async await 비동기처리 , Q. airport_index를 index로 setState하는것을 Test라는 이름으로 정의한것인지?
     await this.setState({
-      airport_index: index
+      airport_index: index //Q. airport_index 를 index로 이름을 변경하겠다는 뜻인지?
     });
-    this.call();
+    this.call(); //Q. this.call();을 하는 이유? (this.blabla가 내가 만든걸 가져온다는 뜻인건 알아요)
     // console.log(this.state.airport_index);
   }
     // function Test(index) {
         
     // }
-  call = async () => {
+  call = async () => { //Q. 서버에 데이터를 요정하는 행위를 Call이라고 정의한것인지?
     await axios //API를 호출하기 위한 라이브러리
     //서버에 데이터를 요청
     .get("/service/rest/AirportParking/airportparkingRT",{
@@ -55,7 +55,7 @@ class App extends Component {
       }
     })
     .then((res) => {
-      let response_data = res.data.response.body.items.item; //일회성 사용 변수
+      let response_data = res.data.response.body.items.item; //일회성 사용 변수 Q. res.data.response.body.items.item;은 경로인가? 무엇의 경로인가?
 
       //조건문
       if(Array.isArray(response_data)) {
